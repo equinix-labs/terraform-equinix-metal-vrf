@@ -51,22 +51,40 @@ variable "customer_asn" {
   default     = 100
 }
 
-variable "bgp_peer_subnet" {
+variable "bgp_peer_subnet_pri" {
   type         = string
-  description  = "BGP peering subnet"
+  description  = "Primary BGP peering subnet"
   default      = "169.254.100.0/30"
 }
 
-variable "metal_bgp_ip" {
+variable "bgp_peer_subnet_sec" {
   type         = string
-  description  = "Metal's local BGP IP peering with customer's BGP IP"
+  description  = "Secondary BGP peering subnet"
+  default      = "169.254.100.8/30"
+}
+
+variable "metal_bgp_ip_pri" {
+  type         = string
+  description  = "Metal's Primary local BGP IP peering with customer's BGP IP"
   default      = "169.254.100.1"
 }
 
-variable "customer_bgp_ip" {
+variable "metal_bgp_ip_sec" {
   type         = string
-  description  = "Customer's BGP IP Peering with metal's BGP IP"
+  description  = "Metal's Secondary local BGP IP peering with customer's BGP IP"
+  default      = "169.254.100.9"
+}
+
+variable "customer_bgp_ip_pri" {
+  type         = string
+  description  = "Customer's BGP IP Peering with metal's Primary BGP IP"
   default      = "169.254.100.2"
+}
+
+variable "customer_bgp_ip_sec" {
+  type         = string
+  description  = "Customer's BGP IP Peering with metal's Secondary BGP IP"
+  default      = "169.254.100.10"
 }
 variable "gateway_count" {
   type        = number

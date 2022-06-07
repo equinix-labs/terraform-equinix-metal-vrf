@@ -104,8 +104,6 @@ resource "equinix_metal_reserved_ip_block" "my_gateway_ip" {
     vrf_id      = equinix_metal_vrf.my_vrf.id
     cidr        = 29
     network     = "192.168.100.0"
-    # network     = element(var.ip_ranges, 1)
-    # network     = cidrhost(var.ip_ranges[1],0)
 }
 # Create a gateway in my current project and assign the reserved IP and the metal's metro vlan to the gateway
 # please notice "vlan_id" is the Metro VLAN's UUID
@@ -122,22 +120,35 @@ data "equinix_metal_connection" "dedicated_port" {
     connection_id = var.dedicated_port_id
 }
 
-# Create a VC connecting VRF with the far-end (customer end). "metal_ip" is the BGP Speaker IP address of the VRF which will default to the first usable IP in the subnet. It peers with the "customer_ip".
+# Create a VC (Virtual Connection) or a pair of VCs for HA (Primary and Secondary respectively) connecting VRF with the far-end (customer end). "metal_ip" is the BGP Speaker IP address of the VRF which will default to the first usable IP in the subnet. It peers with the "customer_ip".
 # which is the BGP Speaker IP address which the Metal VRF will peer with. 
 # After the VC is succsfuly created, there will be no metro VLAN associated with the VC and the VC status will be "Active" in Metal's portal
 # This resource will ONLY create the connection on the Metal's portal. You'll need to setup the VC in fabric portal using the same "nni_vlan" first
 
-resource "equinix_metal_virtual_circuit" "my_vc" {
-    name          = "virtual_connection"
-    description   = "Virtual Circuit"
+resource "equinix_metal_virtual_circuit" "my_vc_pri" {
+    name          = "virtual_connection_pri"
+    description   = "Primary Virtual Circuit"
     connection_id = data.equinix_metal_connection.dedicated_port.id
     project_id    = var.project_id
     port_id       = data.equinix_metal_connection.dedicated_port.ports[0].id
     nni_vlan      = var.nni_vlan
     vrf_id        = equinix_metal_vrf.my_vrf.id
     peer_asn      = var.customer_asn
-    subnet        = var.bgp_peer_subnet
-    metal_ip      = var.metal_bgp_ip
-    customer_ip   = var.customer_bgp_ip
-    # subnet        = element(var.ip_ranges, 0)
+    subnet        = var.bgp_peer_subnet_pri
+    metal_ip      = var.metal_bgp_ip_pri
+    customer_ip   = var.customer_bgp_ip_pri
 } 
+
+resource "equinix_metal_virtual_circuit" "my_vc_sec" {
+    name          = "virtual_connection_sec"
+    description   = "Secondary Virtual Circuit"
+    connection_id = data.equinix_metal_connection.dedicated_port.id
+    project_id    = var.project_id
+    port_id       = data.equinix_metal_connection.dedicated_port.ports[1].id
+    vrf_id        = equinix_metal_vrf.my_vrf.id
+    nni_vlan      = var.nni_vlan
+    peer_asn      = var.customer_asn
+    subnet        = var.bgp_peer_subnet_sec
+    metal_ip      = var.metal_bgp_ip_sec
+    customer_ip   = var.customer_bgp_ip_sec
+}

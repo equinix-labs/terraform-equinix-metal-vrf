@@ -15,20 +15,25 @@ output "metal_node_ip" {
 
 output "metal_vrf" {
   value       = equinix_metal_vrf.my_vrf.*
-  description = "My VRF Information:"
+  description = "The VRF Information:"
 }
 
 output "metal_gateway" {
   value       = equinix_metal_gateway.my_gateway.*
-  description = "My Gateway Information:"
+  description = "The Gateway Information:"
 }
 
  output "dedicated_port" {
   value       = data.equinix_metal_connection.dedicated_port.*
-  description = "My dedicated port for VRF:"
+  description = "The dedicated port for VRF:"
 }
 
- output "virtial_connection" {
-  value       = equinix_metal_virtual_circuit.my_vc.*
-  description = "My VC connecting VRF information:"
+output "virtial_connection_primary" {
+  value       = equinix_metal_virtual_circuit.my_vc_pri.*
+  description = "Information of Primary VC connecting to VRF:"
 } 
+
+output "virtial_connection_secondary" {
+  value       = equinix_metal_virtual_circuit.my_vc_sec.*
+  description = "Information of Secondary VC connecting to VRF:"
+}
