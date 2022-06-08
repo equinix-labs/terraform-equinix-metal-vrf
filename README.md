@@ -5,7 +5,7 @@
 
 # VRF deployment on Equinix Platform
 
-This Terraform script provides VRF deployments on Equinix Metal platform where a Metal Gateway, a VRF and a number of metal nodes are deployed. The metal VRF is connected to a pair of customer colo edge devices via a pair of redundant Virtual Connections (VC) created in redundant dedicated fabric ports (see high-level diagram below). The VRF is used to establish BGP sessions with the colo network devices and advertise the specified IP prefix to the colo.
+This Terraform script provides VRF deployments on Equinix Metal platform where a Metal Gateway, a VRF and a number of metal nodes are deployed. The metal VRF is connected to a pair of customer colo edge devices via a pair of redundant Virtual Connections (VC) created in redundant dedicated fabric ports (see high-level diagram below). The VRF is used to establish BGP sessions with the colo network devices and advertise the specified network IPs to the colo.
 
 <img width="1202" alt="Screen Shot 2022-05-28 at 4 33 37 PM" src="https://user-images.githubusercontent.com/46980377/170843873-bdd78ee1-4778-435b-be18-08b31ecc6f1b.png">
 
@@ -15,27 +15,30 @@ For the Terraform resources used in this script, such as equinix_metal_vrf and o
 
 The Metal Gateway and the Metal nodes shared a single VLAN: the VLAN is hardcoded using 192.168.100.0/24 for IP assignments with Metal Gateway being assigned with 192.168.100.1, the first metal node being assigned with 192.168.100.2, the second metal node being assigned with 192.168.100.3 etc.  
 
-In order to establish the BGP sessions, you'll need to setup the fabric virtual connections on your colo network devices and perform the BGP configurations too.
+In order to establish the BGP sessions, you'll need to setup the fabric virtual connections (VC) to your colo network devices and perform the BGP configurations too.
 
 We recommend the following steps to be performed BEFORE runing this script:
 
-Step 1 - Plan your setup. Include your BGP neighbor IPs, IP subnet (to be advertised via BGP) for metal gateway and metal nodes, Metal VRF ASN (use private ASN space, your network ASN, UUID of your dedicated Metal fabric port (from Metal's portal), Metal project where you plan to deploy the VRF and Metal nodes <br />
+Step 1 - Plan your setup, including your BGP neighbor IPs, network IPs (to be advertised via BGP) for metal gateway and metal nodes, Metal VRF ASN (use private ASN space), your network ASN, UUID of your dedicated Metal fabric port (obtaining it from Metal's portal), Metal project where you plan to deploy the VRF and Metal nodes etc. <br />
+
 Step 2 - In Equini Fabric portal, create a pair of redundant virtual connections using your dedicated fabric port to your colo network devices <br />
+
 Step 3 - Perform BGP setups on your colo network edge devices. Perform server and VLAN setups on your colo side if needed <br />
+
 Setp 4 - Setup the appropriate variable values in your terraform.tfvars file based on Step 1 <br />
 
-Please note, DO NOT manually setup vritual connections (VC) using your Metal's dedicted fabric port via Metal's portal. This script will setup the VCs and BGP sessions etc. on Metal side.
+Please note, DO NOT manually setup virtual connections (VC) using your Metal's dedicted fabric port via Metal's portal. This script will setup the VCs and BGP sessions etc. on Metal side. <br />
 
-The following is the Terraform flow of this script:
+The following is the Terraform flow of this script:  
 
 1.	Create metal instances <br />
 2.	Create a VLAN (or using an existing VLAN) <br />
-3.	Attach the VLAN to instances (nodes need to be in Hybrid or L2 mode) <br />
-4.	Specify IP blocks if needed <br />
+3.	Attach the VLAN to instances (nodes need to be in Hybrid bonded mode OR Layer 2 bonded mode) <br />
+4.	Specify IP blocks to be used (both BGP IPs and Network IPs) <br />
 5.	Create a VRF instance (with the Project ID, VLAN created, local ASN assigned, IP blocks etc.) <br />
 6.	Allocate IPs for the gateway and its associated server nodes (from the IP pools in step 5) <br />
 7.	Create a Metal Gateway instance using ip_reservation_id from step 6, & project ID, VLAN IDs etc. <br />
-8.	Attach the VCs from a dedicated port to the VRF instance <br />
+8.	Attach the VCs from your Metal's dedicated fabric ports to the VRF instance <br />
 
 After the Metal nodes and VRF are sucessfully deployed, the following behaviors are expected:
 1. A Metal node can reach to the metal gateway via the gateway's IP 192.168.100.1
@@ -179,7 +182,7 @@ server_name = [
   "mymetal-node-2",
 ]
 ssh_private_key = "/Users/johndoe/myterraform/myvrf/Cloudinit/ssh-key-wieyh"
-virtial_connection_primary = [
+virtual_connection_primary = [
   {
     "connection_id" = "06726413-c565-4173-82be-9a9562b9a69b"
     "customer_ip" = "169.254.100.2"
@@ -202,7 +205,7 @@ virtial_connection_primary = [
     "vrf_id" = "78034f87-5733-494f-b288-46c8a18da3f4"
   },
 ]
-virtial_connection_secondary = [
+virtual_connection_secondary = [
   {
     "connection_id" = "06726413-c565-4173-82be-9a9562b9a69b"
     "customer_ip" = "169.254.100.10"
