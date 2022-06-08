@@ -8,10 +8,12 @@ output "server_name" {
   description = "Your metal node's hostname:"
 }
 
+/*
 output "metal_node_ip" {
   value       = equinix_metal_device.metal_node[*].access_public_ipv4
   description = "Your metal node's IP addresses:"
 }
+*/
 
 output "metal_vrf" {
   value       = equinix_metal_vrf.my_vrf.*
