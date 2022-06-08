@@ -5,29 +5,43 @@
 
 # VRF deployment on Equinix Platform
 
-This Terraform script provides VRF deployments on Equinix Metal platform where a Metal Gateway, a VRF and a number of metal nodes are deployed. The metal VRF is connected to a pair of far-end (or colo) edge devices via a pair of redundant Virtual Connections (VC) created in a pair of dedicated fabric ports (see high-level diagram below). The VRF is used to establish BGP sessions with the colo network devices and advertise the specified IP routes to the colo.
+This Terraform script provides VRF deployments on Equinix Metal platform where a Metal Gateway, a VRF and a number of metal nodes are deployed. The metal VRF is connected to a pair of customer colo edge devices via a pair of redundant Virtual Connections (VC) created in redundant dedicated fabric ports (see high-level diagram below). The VRF is used to establish BGP sessions with the colo network devices and advertise the specified IP prefix to the colo.
 
 <img width="1202" alt="Screen Shot 2022-05-28 at 4 33 37 PM" src="https://user-images.githubusercontent.com/46980377/170843873-bdd78ee1-4778-435b-be18-08b31ecc6f1b.png">
 
-For information regarding Metal Gateway and VRF, please see the following document - https://metal.equinix.com/developers/docs/networking/metal-gateway/, https://metal.equinix.com/developers/api/vrfs/ For the Layer-2 bonded mode, please see the following Equinix Metal document - https://metal.equinix.com/developers/docs/layer2-networking/layer2-mode/#pure-layer-2-modes
+For information regarding Metal Gateway and VRF, please see the following Equinid Metal document - https://metal.equinix.com/developers/docs/networking/metal-gateway/, https://metal.equinix.com/developers/api/vrfs/ For the Layer-2 bonded mode, please see the following Equinix Metal document - https://metal.equinix.com/developers/docs/layer2-networking/layer2-mode/#pure-layer-2-modes   
 
-The Metal Gateway and the Metal nodes shared a single VLAN: the VLAN is hardcoded using 192.168.100.0/24 for IP assignments with Metal Gateway being assigned with 192.168.100.1, the first metal node being assigned with 192.168.100.2, the second metal node being assigned with 192.168.100.3 etc. 
+For the Terraform resources used in this script, such as equinix_metal_vrf and other Equinix Metal resources, please see the terraform.io registry: https://registry.terraform.io/providers/equinix/equinix/latest/docs/resources/equinix_metal_vrf  
+
+The Metal Gateway and the Metal nodes shared a single VLAN: the VLAN is hardcoded using 192.168.100.0/24 for IP assignments with Metal Gateway being assigned with 192.168.100.1, the first metal node being assigned with 192.168.100.2, the second metal node being assigned with 192.168.100.3 etc.  
 
 In order to establish the BGP sessions, you'll need to setup the fabric virtual connections on your colo network devices and perform the BGP configurations too.
 
 We recommend the following steps to be performed BEFORE runing this script:
 
-Step 1 - Plan your setup. Include your BGP neighbor IPs, IP subnet for metal gateway and metal nodes, Metal VRF ASN (use private ASN space, your network ASN, UUID of your dedicated Metal fabric port (from Metal's portal)
-Step 2 - In Equini fabric portal, create a pair of redundant virtual connections using your dedicated fabric port to your colo network devices
-Step 3 - Perform BGP setups on your colo network edge devices
+Step 1 - Plan your setup. Include your BGP neighbor IPs, IP subnet (to be advertised via BGP) for metal gateway and metal nodes, Metal VRF ASN (use private ASN space, your network ASN, UUID of your dedicated Metal fabric port (from Metal's portal), Metal project where you plan to deploy the VRF and Metal nodes <br />
+Step 2 - In Equini Fabric portal, create a pair of redundant virtual connections using your dedicated fabric port to your colo network devices <br />
+Step 3 - Perform BGP setups on your colo network edge devices. Perform server and VLAN setups on your colo side if needed <br />
+Setp 4 - Setup the appropriate variable values in your terraform.tfvars file based on Step 1 <br />
 
 Please note, DO NOT manually setup vritual connections (VC) using your Metal's dedicted fabric port via Metal's portal. This script will setup the VCs and BGP sessions etc. on Metal side.
 
-After the nodes are sucessfully deployed, the following behaviors are expected:
+The following is the Terraform flow of this script:
+
+1.	Create metal instances <br />
+2.	Create a VLAN (or using an existing VLAN) <br />
+3.	Attach the VLAN to instances (nodes need to be in Hybrid or L2 mode) <br />
+4.	Specify IP blocks if needed <br />
+5.	Create a VRF instance (with the Project ID, VLAN created, local ASN assigned, IP blocks etc.) <br />
+6.	Allocate IPs for the gateway and its associated server nodes (from the IP pools in step 5) <br />
+7.	Create a Metal Gateway instance using ip_reservation_id from step 6, & project ID, VLAN IDs etc. <br />
+8.	Attach the VCs from a dedicated port to the VRF instance <br />
+
+After the Metal nodes and VRF are sucessfully deployed, the following behaviors are expected:
 1. A Metal node can reach to the metal gateway via the gateway's IP 192.168.100.1
 2. Metal nodes can reach to each anoter via their IPs (192.168.100.x)
-3. A Metal node can reach to the VRF's BGP IP (for example, 169.254.100.1)
-4. A Metal node can reach to the colo device's BGP IP (for example, 169.254.100.2)
+3. A Metal node can reach to the VRF's BGP neighbor IP (for example, 169.254.100.1)
+4. A Metal node can reach to the colo device's BGP neighbor IP (for example, 169.254.100.2)
 5. Metal nodes and your colo servers can reah to reach other, if you have servers setup behind your colo network devices and advertise routes via the BGP sessions established between your network devices and Metal VRF.
 
 This repository is [Experimental](https://github.com/packethost/standards/blob/master/experimental-statement.md) meaning that it's based on untested ideas or techniques and not yet established or finalized or involves a radically new and innovative style! This means that support is best effort (at best!) and we strongly encourage you to NOT use this in production.
