@@ -4,16 +4,14 @@ output "metrovlan_ids" {
 }
 
 output "server_name" {
-  value       = equinix_metal_device.metal_node[*].hostname
+  value       = module.metal_nodes.node_names
   description = "Your metal node's hostname:"
 }
 
-/*
 output "metal_node_ip" {
-  value       = equinix_metal_device.metal_node[*].access_public_ipv4
+  value       = module.metal_nodes.nodes_public_ipv4
   description = "Your metal node's IP addresses:"
 }
-*/
 
 output "ssh_private_key" {
   value       = module.ssh.ssh_private_key
