@@ -15,6 +15,11 @@ output "metal_node_ip" {
 }
 */
 
+output "ssh_private_key" {
+  value       = module.ssh.ssh_private_key
+  description = "SSH Key for root access to nodes"
+}
+
 output "metal_vrf" {
   value       = equinix_metal_vrf.my_vrf.*
   description = "The VRF Information:"
@@ -30,12 +35,12 @@ output "dedicated_port" {
   description = "The dedicated port for VRF:"
 }
 
-output "virtial_connection_primary" {
+output "virtual_connection_primary" {
   value       = equinix_metal_virtual_circuit.my_vc_pri.*
   description = "Information of Primary VC connecting to VRF:"
 }
 
-output "virtial_connection_secondary" {
+output "virtual_connection_secondary" {
   value       = equinix_metal_virtual_circuit.my_vc_sec.*
   description = "Information of Secondary VC connecting to VRF:"
 }
