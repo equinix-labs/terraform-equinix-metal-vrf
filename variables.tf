@@ -1,12 +1,110 @@
-# TEMPLATE: All variables must have a description and should declare their type.
-# TEMPLATE: Set defaults whenever possible but do not set defaults for required properties.
-# TEMPLATE: Declare all variables in this file, sprawling declarations are difficult to identify.
-# TEMPLATE:
-# TEMPLATE: https://www.terraform.io/docs/language/values/variables.html
-# TEMPLATE: https://www.terraform.io/docs/language/expressions/types.html
-#
-variable "example" {
+variable "auth_token" {
   type        = string
-  description = "The example value defines what will be included in the example output. This example is descriptive."
-  sensitive   = false
+  description = "Your Equinix Metal API key (https://console.equinix.com/users/-/api-keys)"
+  sensitive   = true
+}
+
+variable "project_id" {
+  type        = string
+  description = "Your Equinix Metal project ID, where you want to deploy your nodes to"
+}
+
+variable "plan" {
+  type        = string
+  description = "Metal server type you plan to deploy"
+  default     = "c3.small.x86"
+}
+
+variable "operating_system" {
+  type        = string
+  description = "OS you want to deploy"
+  default     = "ubuntu_20_04"
+}
+
+variable "metro" {
+  type        = string
+  description = "Metal's Metro location you want to deploy your servers to"
+  default     = "ny"
+}
+
+variable "server_count" {
+  type        = number
+  description = "numbers of backend nodes you want to deploy"
+  default     = 1
+}
+
+variable "vlan_count" {
+  type        = number
+  description = "Metal's Metro VLAN"
+  default     = 1
+}
+
+variable "metal_asn" {
+  type        = number
+  description = "Metal's local ASN"
+  default     = 65100
+}
+
+variable "customer_asn" {
+  type        = number
+  description = "Metal customer's ASN peering with Metal"
+  default     = 100
+}
+
+variable "bgp_peer_subnet_pri" {
+  type        = string
+  description = "Primary BGP peering subnet"
+  default     = "169.254.100.0/30"
+}
+
+variable "bgp_peer_subnet_sec" {
+  type        = string
+  description = "Secondary BGP peering subnet"
+  default     = "169.254.100.8/30"
+}
+
+variable "metal_bgp_ip_pri" {
+  type        = string
+  description = "Metal's Primary local BGP IP peering with customer's BGP IP"
+  default     = "169.254.100.1"
+}
+
+variable "metal_bgp_ip_sec" {
+  type        = string
+  description = "Metal's Secondary local BGP IP peering with customer's BGP IP"
+  default     = "169.254.100.9"
+}
+
+variable "customer_bgp_ip_pri" {
+  type        = string
+  description = "Customer's BGP IP Peering with metal's Primary BGP IP"
+  default     = "169.254.100.2"
+}
+
+variable "customer_bgp_ip_sec" {
+  type        = string
+  description = "Customer's BGP IP Peering with metal's Secondary BGP IP"
+  default     = "169.254.100.10"
+}
+variable "gateway_count" {
+  type        = number
+  description = "number of Metal Gateway"
+  default     = 1
+}
+
+variable "dedicated_port_id" {
+  type        = string
+  description = "Your Metal's dedicated fabric port's UUID. You can retrieve the UUID from Metal's portal"
+  default     = "123456789"
+}
+
+variable "nni_vlan" {
+  type        = number
+  description = "Your fabric virtual circuit's NNI VLAN connecting to your VRF"
+  default     = 999
+}
+
+variable "ip_ranges" {
+  type        = list(any)
+  description = "Your reserved IP ranges"
 }
