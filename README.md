@@ -1,6 +1,6 @@
 # Equinix Metal Virtual Routing and Forwarding (VRF)
 [![Experimental](https://img.shields.io/badge/Stability-Experimental-red.svg)](https://github.com/equinix-labs/standards#about-uniform-standards)
-[![terraform](https://github.com/equinix-labs/terraform-metal-vrf/actions/workflows/integration.yaml/badge.svg)](https://github.com/equinix-labs/terraform-metal-vrf/actions/workflows/integration.yaml)
+[![terraform](https://github.com/equinix-labs/terraform-equinix-metal-vrf/actions/workflows/integration.yaml/badge.svg)](https://github.com/equinix-labs/terraform-equinix-metal-vrf/actions/workflows/integration.yaml)
 
 
 # VRF deployment on Equinix Platform
