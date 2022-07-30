@@ -99,69 +99,27 @@ Apply complete! Resources: 17 added, 0 changed, 0 destroyed.
 
 Outputs:
 
-dedicated_port = [
-  {
-    "connection_id" = "06726413-c565-4173-82be-9a9562b9a69b"
-    "description" = ""
-    "facility" = "ny5"
-    "id" = "06726413-c565-4173-82be-9a9562b9a69b"
-    "metro" = "ny"
-    "mode" = "standard"
-    "name" = "NY-Metal-to-Fabric-Dedicated-Redundant-Port"
-    "organization_id" = "e83e4455-e72a-4dc6-b48f-653b56db1939"
-    "ports" = tolist([
-      {
-        "id" = "2a027f9f-dae6-454b-a783-2a25c678f506"
-        "link_status" = "up"
-        "name" = "NY-Metal-to-Fabric-Dedicated-Redundant-Port-primary"
-        "role" = "primary"
-        "speed" = 10000000000
-        "status" = "active"
-        "virtual_circuit_ids" = tolist([
-          "6b52f881-eefe-4441-9613-40ff7dabeeca",
-          "6319dbdf-7305-4c6f-a39c-411a94c8388c",
-          "c35991a7-0fdc-4c15-b12b-8046c9258d15",
-          "24b259ae-bba4-4d35-ac1f-978915a36aef",
-        ])
-      },
-      {
-        "id" = "963471e8-c815-4055-93b6-74092227d65c"
-        "link_status" = "up"
-        "name" = "NY-Metal-to-Fabric-Dedicated-Redundant-Port-secondary"
-        "role" = "secondary"
-        "speed" = 10000000000
-        "status" = "active"
-        "virtual_circuit_ids" = tolist([
-          "52d176fe-7bbe-4c38-a487-73119f5c78d2",
-          "9667bc63-2310-4d4e-81dc-e06979f6ebb0",
-        ])
-      },
-    ])
-    "project_id" = ""
-    "redundancy" = "redundant"
-    "speed" = 0
-    "status" = "active"
-    "tags" = tolist([])
-    "token" = ""
-    "type" = "dedicated"
-  },
-]
+dedicated_ports = {
+  "metro" = "ny"
+  "name" = "NY-Metal-to-Fabric-Dedicated-Redundant-Port"
+  "port_id" = "06726413-c565-4173-82be-9a9562b9a69b"
+  "redundancy" = "redundant"
+}
 metal_gateway = [
   {
-    "id" = "98cf7bb5-f7ae-45b6-ae71-733131042dcf"
-    "ip_reservation_id" = "1ea66ec6-1325-4f94-b9b4-ae15c7668fe5"
+    "id" = "fc799809-3b70-4e75-94c1-2aa544cf8c24"
+    "ip_reservation_id" = "1b24d1c2-5da6-4d33-93df-aefacab77e62"
     "private_ipv4_subnet_size" = 8
     "project_id" = "81666c08-3823-4180-832f-1ce1f13e1662"
     "state" = "ready"
-    "vlan_id" = "6504eb92-5af7-4368-9cc9-a11b0f27cc62"
-    "vrf_id" = "78034f87-5733-494f-b288-46c8a18da3f4"
+    "vlan_id" = "2b869486-b2ac-4a03-8210-b9ace27250c9"
+    "vrf_id" = "36007fbc-5857-4afc-a22e-91e382404a14"
   },
 ]
-
 metal_vrf = [
   {
     "description" = "VRF with ASN 65100 and a pool of address space that includes a subnet for your BGP and subnets for each of your Metal Gateways"
-    "id" = "78034f87-5733-494f-b288-46c8a18da3f4"
+    "id" = "36007fbc-5857-4afc-a22e-91e382404a14"
     "ip_ranges" = toset([
       "169.254.100.0/24",
       "192.168.100.0/24",
@@ -181,52 +139,21 @@ server_name = [
   "mymetal-node-1",
   "mymetal-node-2",
 ]
-ssh_private_key = "/Users/johndoe/myterraform/myvrf/Cloudinit/ssh-key-wieyh"
-virtual_connection_primary = [
-  {
-    "connection_id" = "06726413-c565-4173-82be-9a9562b9a69b"
-    "customer_ip" = "169.254.100.2"
-    "description" = "Primary Virtual Circuit"
-    "id" = "acb4f4cf-9c96-424c-bb6f-51bda36b17a5"
-    "md5" = ""
-    "metal_ip" = "169.254.100.1"
-    "name" = "virtual_connection_pri"
-    "nni_vlan" = 999
-    "nni_vnid" = 999
-    "peer_asn" = 100
-    "port_id" = "2a027f9f-dae6-454b-a783-2a25c678f506"
-    "project_id" = "81666c08-3823-4180-832f-1ce1f13e1662"
-    "speed" = "0"
-    "status" = "active"
-    "subnet" = "169.254.100.0/30"
-    "tags" = tolist(null) /* of string */
-    "vlan_id" = tostring(null)
-    "vnid" = 0
-    "vrf_id" = "78034f87-5733-494f-b288-46c8a18da3f4"
-  },
-]
-virtual_connection_secondary = [
-  {
-    "connection_id" = "06726413-c565-4173-82be-9a9562b9a69b"
-    "customer_ip" = "169.254.100.10"
-    "description" = "Secondary Virtual Circuit"
-    "id" = "16db378e-923d-4c52-a8de-27b507e32dcc"
-    "md5" = ""
-    "metal_ip" = "169.254.100.9"
-    "name" = "virtual_connection_sec"
-    "nni_vlan" = 999
-    "nni_vnid" = 999
-    "peer_asn" = 100
-    "port_id" = "963471e8-c815-4055-93b6-74092227d65c"
-    "project_id" = "81666c08-3823-4180-832f-1ce1f13e1662"
-    "speed" = "0"
-    "status" = "active"
-    "subnet" = "169.254.100.8/30"
-    "tags" = tolist(null) /* of string */
-    "vlan_id" = tostring(null)
-    "vnid" = 0
-    "vrf_id" = "78034f87-5733-494f-b288-46c8a18da3f4"
-  },
-]
-
+ssh_private_key = "/Users/larryma/myterraform/myVRF/0729_2022/ssh-key-pctya"
+virtual_connection_primary = {
+  "metal_ip" = "169.254.100.1"
+  "name" = "virtual_connection_pri"
+  "nni_vlan" = 999
+  "peer_asn" = 100
+  "peer_ip" = "169.254.100.2"
+  "vc_id" = "06726413-c565-4173-82be-9a9562b9a69b"
+}
+virtual_connection_secondary = {
+  "metal_ip" = "169.254.100.9"
+  "name" = "virtual_connection_sec"
+  "nni_vlan" = 999
+  "peer_asn" = 100
+  "peer_ip" = "169.254.100.10"
+  "vc_id" = "06726413-c565-4173-82be-9a9562b9a69b"
+}
 ```
