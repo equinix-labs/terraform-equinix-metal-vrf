@@ -5,7 +5,7 @@
 
 # VRF deployment on Equinix Platform
 
-This Terraform script provides VRF deployments on Equinix Metal platform where a Metal Gateway, a VRF and a number of metal nodes are deployed. The metal VRF is connected to a pair of customer colo edge devices via a pair of redundant Virtual Connections (VC) created in a redundant dedicated fabric port (see high-level diagram below). The VRF is used to establish BGP sessions with the colo network devices and advertise the specified network IPs to the colo.
+This Terraform script provides VRF deployments on Equinix Metal platform where a Metal Gateway, a VRF and a number of metal nodes are deployed. The metal VRF is connected to a pair of customer colo edge devices via a pair of redundant Virtual Connections (VC) created in a redundant dedicated fabric port (see high-level diagram below). The VRF is used to establish BGP sessions with colo network devices (or network edge devices) and advertise the specified network IPs to the devices.
 
 <img width="1202" alt="Screen Shot 2022-05-28 at 4 33 37 PM" src="https://user-images.githubusercontent.com/46980377/170843873-bdd78ee1-4778-435b-be18-08b31ecc6f1b.png">
 
@@ -15,7 +15,7 @@ For the Terraform resources used in this script, such as "equinix_metal_vrf" and
 
 The Metal Gateway and the Metal nodes shared a single VLAN, the VLAN is hardcoded using 192.168.100.0/24 for IP assignments with Metal Gateway being assigned with 192.168.100.1, the first metal node being assigned with 192.168.100.2, the second metal node being assigned with 192.168.100.3 etc.  
 
-In order to establish the BGP sessions, you'll need to setup the fabric virtual connections (VC) to your colo network devices and perform the BGP configurations too.
+In order to establish the BGP sessions, you'll need to setup redundant fabric virtual connections (VC) to your colo network devices and perform BGP configurations too.
 
 We recommend the following steps to be performed BEFORE runing this script:
 
@@ -27,7 +27,7 @@ Step 3 - Perform BGP setups on your colo network edge devices. Perform server an
 
 Setp 4 - Setup the appropriate variable values in your terraform.tfvars file based on Step 1 <br />
 
-Please note, DO NOT manually setup virtual connections (VC) using your Metal's dedicated fabric port via Metal's portal. This script will setup the VCs and BGP sessions etc. on Metal side. <br />
+Please note, DO NOT manually setup virtual connections (VC) using your Metal's dedicated fabric port in Metal's portal. This script will setup the VCs and BGP sessions etc. on Metal side. <br />
 
 The following is the Terraform flow of this script:  
 
@@ -45,7 +45,7 @@ After the Metal nodes and VRF are sucessfully deployed, the following behaviors 
 2. Metal nodes can reach to each anoter via their IPs (192.168.100.x)
 3. A Metal node can reach to the VRF's BGP neighbor IP (for example, 169.254.100.1)
 4. A Metal node can reach to the colo device's BGP neighbor IP (for example, 169.254.100.2)
-5. Metal nodes and your colo servers can reach to each other, if you have setup servers behind your colo network devices and advertise routes via the BGP sessions established between your network devices and the Metal VRF.
+5. Metal nodes and your colo servers can reach to each other. If you have setup servers behind your colo network devices and advertise routes via the BGP sessions established between your network devices and the Metal VRF.
 
 This repository is [Experimental](https://github.com/packethost/standards/blob/master/experimental-statement.md) meaning that it's based on untested ideas or techniques and not yet established or finalized or involves a radically new and innovative style! This means that support is best effort (at best!) and we strongly encourage you to NOT use this in production.
 
