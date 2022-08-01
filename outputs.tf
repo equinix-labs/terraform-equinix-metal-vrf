@@ -41,7 +41,7 @@ output "dedicated_ports" {
 
 output "virtual_connection_primary" {
   value       = {
-    vc_id     = equinix_metal_virtual_circuit.my_vc_pri.connection_id,
+    vc_id     = equinix_metal_virtual_circuit.my_vc_pri.id,
     name      = equinix_metal_virtual_circuit.my_vc_pri.name,
     nni_vlan  = equinix_metal_virtual_circuit.my_vc_pri.nni_vlan,
     peer_asn  = equinix_metal_virtual_circuit.my_vc_pri.peer_asn,
@@ -53,7 +53,7 @@ output "virtual_connection_primary" {
 
 output "virtual_connection_secondary" {
   value       = {
-    vc_id     = equinix_metal_virtual_circuit.my_vc_sec.connection_id,
+    vc_id     = equinix_metal_virtual_circuit.my_vc_sec.id,
     name      = equinix_metal_virtual_circuit.my_vc_sec.name,
     nni_vlan  = equinix_metal_virtual_circuit.my_vc_sec.nni_vlan,
     peer_asn  = equinix_metal_virtual_circuit.my_vc_sec.peer_asn,
