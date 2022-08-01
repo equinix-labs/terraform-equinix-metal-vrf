@@ -98,7 +98,6 @@ Once this is complete you should get output similar to this:
 Apply complete! Resources: 17 added, 0 changed, 0 destroyed.
 
 Outputs:
-
 dedicated_ports = {
   "metro" = "ny"
   "name" = "NY-Metal-to-Fabric-Dedicated-Redundant-Port"
@@ -107,19 +106,19 @@ dedicated_ports = {
 }
 metal_gateway = [
   {
-    "id" = "fc799809-3b70-4e75-94c1-2aa544cf8c24"
-    "ip_reservation_id" = "1b24d1c2-5da6-4d33-93df-aefacab77e62"
+    "id" = "928fd880-3245-4118-aeee-a10946ba80a5"
+    "ip_reservation_id" = "29a51565-737d-407d-8f53-f5071b32a58c"
     "private_ipv4_subnet_size" = 8
     "project_id" = "81666c08-3823-4180-832f-1ce1f13e1662"
     "state" = "ready"
-    "vlan_id" = "2b869486-b2ac-4a03-8210-b9ace27250c9"
-    "vrf_id" = "36007fbc-5857-4afc-a22e-91e382404a14"
+    "vlan_id" = "8446cf2c-60d9-4370-9be1-ecb351165cd2"
+    "vrf_id" = "450812ad-4e5b-43ac-9cfd-1c18dde8c5ac"
   },
 ]
 metal_vrf = [
   {
     "description" = "VRF with ASN 65100 and a pool of address space that includes a subnet for your BGP and subnets for each of your Metal Gateways"
-    "id" = "36007fbc-5857-4afc-a22e-91e382404a14"
+    "id" = "450812ad-4e5b-43ac-9cfd-1c18dde8c5ac"
     "ip_ranges" = toset([
       "169.254.100.0/24",
       "192.168.100.0/24",
@@ -132,21 +131,21 @@ metal_vrf = [
   },
 ]
 metrovlan_ids = [
-  1006,
-  1007,
+  1008,
+  1009,
 ]
 server_name = [
   "mymetal-node-1",
   "mymetal-node-2",
 ]
-ssh_private_key = "/Users/larryma/myterraform/myVRF/0729_2022/ssh-key-pctya"
+ssh_private_key = "/Users/larryma/myterraform/myvrf/0801_2022/terraform-equinix-metal-vrf/ssh-key-711c9"
 virtual_connection_primary = {
   "metal_ip" = "169.254.100.1"
   "name" = "virtual_connection_pri"
   "nni_vlan" = 999
   "peer_asn" = 100
   "peer_ip" = "169.254.100.2"
-  "vc_id" = "06726413-c565-4173-82be-9a9562b9a69b"
+  "vc_id" = "195891bb-83ec-4faa-86ae-25ac434e5deb"
 }
 virtual_connection_secondary = {
   "metal_ip" = "169.254.100.9"
@@ -154,6 +153,7 @@ virtual_connection_secondary = {
   "nni_vlan" = 999
   "peer_asn" = 100
   "peer_ip" = "169.254.100.10"
-  "vc_id" = "06726413-c565-4173-82be-9a9562b9a69b"
+  "vc_id" = "47086fe1-9323-4bed-8237-20f161932a29"
 }
+
 ```
