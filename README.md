@@ -138,7 +138,7 @@ server_name = [
   "mymetal-node-1",
   "mymetal-node-2",
 ]
-ssh_private_key = "/Users/larryma/myterraform/myvrf/0801_2022/terraform-equinix-metal-vrf/ssh-key-711c9"
+ssh_private_key = "/Users/usrname/terraform-equinix-metal-vrf/ssh_key_name"
 virtual_connection_primary = {
   "metal_ip" = "169.254.100.1"
   "name" = "virtual_connection_pri"
