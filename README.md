@@ -23,7 +23,7 @@ Step 1 - Plan your setup, including your BGP neighbor IPs, network IPs (to be ad
 
 Step 2 - In Equinix Fabric portal (https://fabric.equinix.com), create a pair of redundant virtual connections (VC) using your dedicated fabric port to your colo network devices <br />
 
-Step 3 - Perform BGP setups on your colo network edge devices following the BGP plan in Step 1. Since this Terraform script by default will auto allocate two metal's metro VLANs (one is a pseudo VLAN becasue we're using layer 2 bonded mode,the other one is a taged (802.1Q) VLAN) , therefore if you need to setup the same taged metal VALN on your colo side, you'll have to do so after you run this script <br /> 
+Step 3 - Perform BGP setups on your colo network edge devices following the BGP plan in Step 1. Since this Terraform script by default will auto allocate two metal's metro VLANs (one is a pseudo VLAN becasue we're using layer 2 bonded mode,the other one is a taged (802.1Q) VLAN) , therefore if you need to setup the same taged metal VALN (VLAN1) on your colo side, you'll have to do so after you run this script <br /> 
 
 Setp 4 - Setup the appropriate variable values in your terraform.tfvars file based on Step 1 <br />
 
