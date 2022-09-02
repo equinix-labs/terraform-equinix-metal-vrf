@@ -27,7 +27,7 @@ Step 3 - Perform BGP setups on your colo network edge devices following the BGP 
 
 Setp 4 - Setup the appropriate variable values in your terraform.tfvars file based on Step 1 <br />
 
-Step 5 - After you run this script successfully, first make sure BGP sessions are etablished between VRF and your colo switches; your colo switches and the metal servers can ping each other, then grab the Metal VLAN by login to one of the Metal nodes (via Metal server's out-of-band console) and perform server and VLAN setups on your colo side if needed <br />
+Step 5 - After you run this script successfully, first make sure BGP sessions are etablished between VRF and your colo switches, your colo switches and the metal servers can ping each other; then grab the Metal VLAN by login to one of the Metal nodes (via Metal server's out-of-band console) and perform server and VLAN setups on your colo side if needed <br />
 
 Please note, DO NOT manually setup virtual connections (VC) using your Metal's dedicated fabric port in Metal's portal. This script will setup the VCs and BGP sessions etc. on Metal side. <br />
 
@@ -47,7 +47,7 @@ After the Metal nodes and VRF are sucessfully deployed, the following behaviors 
 2. Metal nodes can reach to each anoter via their IPs (192.168.100.x)
 3. A Metal node can reach to the VRF's BGP neighbor IP (for example, 169.254.100.1)
 4. A Metal node can reach to the colo device's BGP neighbor IP (for example, 169.254.100.2)
-5. Metal nodes and your colo servers can reach to each other if you have setup servers behind your colo network devices and advertise routes via the BGP sessions established between your network devices and the Metal VRF.
+5. Metal nodes and your colo servers can reach to each other if you have setup servers on VLAN1 behind your colo network devices and advertise routes via the BGP sessions established between your network devices and the Metal VRF
 
 This repository is [Experimental](https://github.com/packethost/standards/blob/master/experimental-statement.md) meaning that it's based on untested ideas or techniques and not yet established or finalized or involves a radically new and innovative style! This means that support is best effort (at best!) and we strongly encourage you to NOT use this in production.
 
