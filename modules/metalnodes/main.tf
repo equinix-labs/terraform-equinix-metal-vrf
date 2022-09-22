@@ -68,6 +68,6 @@ resource "equinix_metal_port" "port" {
   layer2   = true
   bonded   = true
   vlan_ids = var.metal_vlan.*.id
-  depends_on = [equinix_metal_device.metal_nodes, equinix_metal_device.metal_nodes]
+  depends_on = [equinix_metal_device.metal_nodes]
 }
 
