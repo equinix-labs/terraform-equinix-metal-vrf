@@ -2,6 +2,7 @@
 [![Experimental](https://img.shields.io/badge/Stability-Experimental-red.svg)](https://github.com/equinix-labs/standards#about-uniform-standards)
 [![terraform](https://github.com/equinix-labs/terraform-equinix-metal-vrf/actions/workflows/integration.yaml/badge.svg)](https://github.com/equinix-labs/terraform-equinix-metal-vrf/actions/workflows/integration.yaml)
 
+# Attention! VRF is currently only supported with Dedicated Metal Ports
 
 # VRF deployment on Equinix Platform
 
