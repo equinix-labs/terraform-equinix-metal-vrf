@@ -106,6 +106,7 @@ resource "equinix_metal_virtual_circuit" "my_vc_pri" {
     subnet        = var.bgp_peer_subnet_pri
     metal_ip      = var.metal_bgp_ip_pri
     customer_ip   = var.customer_bgp_ip_pri
+    md5           = var.bgp_md5_pri
 } 
 
 resource "equinix_metal_virtual_circuit" "my_vc_sec" {
@@ -120,5 +121,6 @@ resource "equinix_metal_virtual_circuit" "my_vc_sec" {
     subnet        = var.bgp_peer_subnet_sec
     metal_ip      = var.metal_bgp_ip_sec
     customer_ip   = var.customer_bgp_ip_sec
+    md5           = var.bgp_md5_sec
 }
 

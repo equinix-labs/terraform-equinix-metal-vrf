@@ -108,3 +108,15 @@ variable "ip_ranges" {
   type        = list(any)
   description = "Your reserved IP ranges"
 }
+
+variable "bgp_md5_pri" {
+  type = string
+  description = "BGP password of primary connection"
+  default = null
+}
+
+variable "bgp_md5_sec" {
+  type = string
+  description = "BGP password of secondary connection"
+  default = null
+}
