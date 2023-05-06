@@ -110,13 +110,13 @@ variable "ip_ranges" {
 }
 
 variable "bgp_md5_pri" {
-  type = string
+  type        = string
   description = "BGP password of primary connection"
-  default = null
+  default     = null
 }
 
 variable "bgp_md5_sec" {
-  type = string
+  type        = string
   description = "BGP password of secondary connection"
-  default = null
+  default     = null
 }

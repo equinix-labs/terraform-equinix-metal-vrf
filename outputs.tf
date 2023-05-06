@@ -4,13 +4,13 @@ output "metrovlan_ids" {
 }
 
 output "server_name" {
-  value       = module.metal_nodes.node_names
+  value       = module.equinix_metal_nodes.node_names
   description = "Your metal node's hostname:"
 }
 
 /* Don't output metal nodes' IPs in layer2 mode
 output "metal_node_ip" {
-  value       = module.metal_nodes.nodes_public_ipv4
+  value       = module.equinix_metal_nodes.nodes_public_ipv4
   description = "Your metal node's IP addresses:"
 }
 */
@@ -30,7 +30,7 @@ output "metal_gateway" {
   description = "The Gateway Information:"
 }
 output "dedicated_ports" {
-  value       = {
+  value = {
     port_id    = data.equinix_metal_connection.dedicated_port.id,
     name       = data.equinix_metal_connection.dedicated_port.name,
     metro      = data.equinix_metal_connection.dedicated_port.metro,
@@ -40,25 +40,25 @@ output "dedicated_ports" {
 }
 
 output "virtual_connection_primary" {
-  value       = {
-    vc_id     = equinix_metal_virtual_circuit.my_vc_pri.id,
-    name      = equinix_metal_virtual_circuit.my_vc_pri.name,
-    nni_vlan  = equinix_metal_virtual_circuit.my_vc_pri.nni_vlan,
-    peer_asn  = equinix_metal_virtual_circuit.my_vc_pri.peer_asn,
-    peer_ip   = equinix_metal_virtual_circuit.my_vc_pri.customer_ip,
-    metal_ip  = equinix_metal_virtual_circuit.my_vc_pri.metal_ip
+  value = {
+    vc_id    = equinix_metal_virtual_circuit.my_vc_pri.id,
+    name     = equinix_metal_virtual_circuit.my_vc_pri.name,
+    nni_vlan = equinix_metal_virtual_circuit.my_vc_pri.nni_vlan,
+    peer_asn = equinix_metal_virtual_circuit.my_vc_pri.peer_asn,
+    peer_ip  = equinix_metal_virtual_circuit.my_vc_pri.customer_ip,
+    metal_ip = equinix_metal_virtual_circuit.my_vc_pri.metal_ip
   }
   description = "Information of Primary VC connecting to VRF"
 }
 
 output "virtual_connection_secondary" {
-  value       = {
-    vc_id     = equinix_metal_virtual_circuit.my_vc_sec.id,
-    name      = equinix_metal_virtual_circuit.my_vc_sec.name,
-    nni_vlan  = equinix_metal_virtual_circuit.my_vc_sec.nni_vlan,
-    peer_asn  = equinix_metal_virtual_circuit.my_vc_sec.peer_asn,
-    peer_ip   = equinix_metal_virtual_circuit.my_vc_sec.customer_ip,
-    metal_ip  = equinix_metal_virtual_circuit.my_vc_sec.metal_ip
+  value = {
+    vc_id    = equinix_metal_virtual_circuit.my_vc_sec.id,
+    name     = equinix_metal_virtual_circuit.my_vc_sec.name,
+    nni_vlan = equinix_metal_virtual_circuit.my_vc_sec.nni_vlan,
+    peer_asn = equinix_metal_virtual_circuit.my_vc_sec.peer_asn,
+    peer_ip  = equinix_metal_virtual_circuit.my_vc_sec.customer_ip,
+    metal_ip = equinix_metal_virtual_circuit.my_vc_sec.metal_ip
   }
   description = "Information of Secondary VC connecting to VRF"
 }

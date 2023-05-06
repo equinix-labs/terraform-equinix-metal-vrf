@@ -3,8 +3,9 @@
 
 provider "registry.terraform.io/equinix/equinix" {
   version     = "1.14.1"
-  constraints = "1.14.1"
+  constraints = "~> 1.14"
   hashes = [
+    "h1:RPOKuf08oOp6TVstX6LZvme7CDaXGizlCGGqmmclmwI=",
     "h1:leVuWUGydv+Nbs7Mmjm4iOF/mu+GWploPZW9dg7r3IY=",
     "zh:1b478c206ae88a3bfd4ab376ce19e5c577b8f3389005cc159bb041b6dc9e00b1",
     "zh:24b793281076cd57ac42665d919406ba4077768db01b0f1f1e7daff814159a49",
