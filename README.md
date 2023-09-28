@@ -11,7 +11,7 @@ Metal Virtual Routing & Forwarding (VRF) is a layer 3 networking service. It's i
 
 ![Metal-VRF-Github-0928-2023](https://github.com/equinix-labs/terraform-equinix-metal-vrf/assets/46980377/5d0bdb16-2a82-4a46-a793-7ac0212fbb3a)
 
-For information regarding Metal Gateway and VRF, please see the following Equinix Metal document - <https://metal.equinix.com/developers/docs/networking/metal-gateway/>, <https://metal.equinix.com/developers/api/vrfs/> For the Layer-2 bonded mode, please see the following Equinix Metal document - <https://metal.equinix.com/developers/docs/layer2-networking/layer2-mode/#pure-layer-2-modes>
+For information regarding Metal Gateway and VRF, please see the following Equinix Metal document - <https://metal.equinix.com/developers/docs/networking/metal-gateway/>, <https://deploy.equinix.com/developers/docs/metal/interconnections/vrf/> For the Layer-2 bonded mode, please see the following Equinix Metal document - <https://metal.equinix.com/developers/docs/layer2-networking/layer2-mode/#pure-layer-2-modes>
 
 For the Terraform resources used in this script, such as "equinix_metal_vrf" and other Equinix Metal resources, please see the terraform.io registry: <https://registry.terraform.io/providers/equinix/equinix/latest/docs/resources/equinix_metal_vrf>  
 
