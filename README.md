@@ -1,17 +1,18 @@
-# Equinix Metal Virtual Routing and Forwarding (VRF)
+# Equinix Metal Virtual Routing and Forwarding (VRF) 
 
 [![Experimental](https://img.shields.io/badge/Stability-Experimental-red.svg)](https://github.com/equinix-labs/standards#about-uniform-standards)
 [![terraform](https://github.com/equinix-labs/terraform-equinix-metal-vrf/actions/workflows/integration.yaml/badge.svg)](https://github.com/equinix-labs/terraform-equinix-metal-vrf/actions/workflows/integration.yaml)
-
-# Attention! VRF is currently only supported with Dedicated Metal Ports
 
 # VRF deployment on Equinix Platform
 
 Metal Virtual Routing & Forwarding (VRF) is a layer 3 networking service. It's implemented in Metal's networking devices (routers, switches etc) with built-in HA function. This Terraform script provides VRF deployments on Equinix Metal platform where a Metal Gateway, a VRF and a number of metal nodes are deployed. The metal VRF is connected to a pair of customer colo edge devices via a pair of redundant Virtual Connections (VC) created in a redundant dedicated fabric port (see high-level diagram below). The VRF is used to establish BGP sessions with colo network devices (or network edge devices) and advertise the specified network IPs to the devices.
 
-<img width="1223" alt="image" src="https://user-images.githubusercontent.com/46980377/203126361-e9030734-3905-45f7-acbb-71df0ba928ad.png">
+![Metal-VRF-Github-0928-2023](https://github.com/equinix-labs/terraform-equinix-metal-vrf/assets/46980377/f3f2718c-bb53-4744-b1f1-e5f4a0116017)
 
-For information regarding Metal Gateway and VRF, please see the following Equinix Metal document - <https://metal.equinix.com/developers/docs/networking/metal-gateway/>, <https://metal.equinix.com/developers/api/vrfs/> For the Layer-2 bonded mode, please see the following Equinix Metal document - <https://metal.equinix.com/developers/docs/layer2-networking/layer2-mode/#pure-layer-2-modes>
+This script assumes that you already have a pair of dedicated Metal fabric ports in your Metal organization. For information on setting up dedicated Metal fabric ports, please see the following Equinix Metal document - <https://deploy.equinix.com/developers/docs/metal/interconnections/dedicated-ports/>
+
+For information regarding Metal Gateway and VRF, please see the following Equinix Metal document - <https://metal.equinix.com/developers/docs/networking/metal-gateway/> <https://deploy.equinix.com/developers/docs/metal/interconnections/vrf/> <br />
+For the Layer-2 bonded mode, please see the following Equinix Metal document - <https://metal.equinix.com/developers/docs/layer2-networking/layer2-mode/#pure-layer-2-modes>
 
 For the Terraform resources used in this script, such as "equinix_metal_vrf" and other Equinix Metal resources, please see the terraform.io registry: <https://registry.terraform.io/providers/equinix/equinix/latest/docs/resources/equinix_metal_vrf>  
 
