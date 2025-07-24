@@ -5,7 +5,7 @@ terraform {
   required_providers {
     equinix = {
       source = "equinix/equinix"
-      version = "~> 1.14"
+      version = "~> 3.0"
     }
   }
   provider_meta "equinix" {
